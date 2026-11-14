@@ -97,6 +97,10 @@ tạo hồ sơ, thư mục ảnh và thư mục chương rỗng. Không cần ch
 
 ## GitHub và các phiên bản
 
+[Kho mã nguồn](https://github.com/xuanhoatrieu/authoring-studio) ·
+[Bản phát hành v0.1.0](https://github.com/xuanhoatrieu/authoring-studio/releases/tag/v0.1.0) ·
+[Kết quả kiểm tra](docs/verification-0.1.0.md).
+
 [Hướng dẫn phát hành](docs/github-release.md) mô tả tạo repository, push, tag,
 Release, cách kiểm tra phiên bản và quay lại bản trước. [Kiến trúc](docs/architecture.md)
 giải thích phần dùng chung và phần của từng cuốn sách.

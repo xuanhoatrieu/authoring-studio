@@ -15,16 +15,21 @@ Môi trường đã chạy: macOS, Python 3.12 trong môi trường riêng của
   kế hoạch, bằng chứng chưa kiểm chứng, schema khác phiên bản, khóa YAML trùng,
   chuyển tên tệp chương, ZIP tái lập và đối chiếu phiên bản phát hành.
 - Nội dung và tham chiếu trong skill được rà soát theo yêu cầu đã thống nhất.
+- Commit phát hành: `e2af9837d740cc4458bad0a0308209f971042420`; tag `v0.1.0` đã push.
+- GitHub Actions chạy đủ 17 kiểm thử trên Linux, macOS và Windows với Python 3.10:
+  [kết quả kiểm tra và phát hành](https://github.com/xuanhoatrieu/authoring-studio/actions/runs/43534297907).
+- [Release v0.1.0](https://github.com/xuanhoatrieu/authoring-studio/releases/tag/v0.1.0)
+  đã tạo, có ZIP plugin và tệp SHA256. Kho được công khai theo lựa chọn của chủ sở hữu.
+
+Lần push đầu đưa nhánh và tag lên cùng lúc chỉ khởi chạy workflow của nhánh.
+Workflow phát hành đã được kích hoạt thủ công với chính tag `v0.1.0`; không đổi tag.
 
 ## Chưa xác nhận
 
 - Cài plugin vào host thực tế và nhận diện skill trong cuộc trao đổi mới.
 - Kiểm thử hành vi bằng model độc lập theo `behavioral-tests.md`.
-- Chạy trên Windows/Linux; workflow đã chuẩn bị nhưng chưa chạy trên GitHub.
-- GitHub remote, push, tag hoặc Release công khai.
 - Chất lượng bản in: 0.1.0 chưa có renderer và không tạo nội dung sách.
 
 Git repository dùng nhánh main. Chủ sở hữu GitHub đã xác nhận là `xuanhoatrieu`;
 danh tính commit lấy từ hồ sơ GitHub đã kết nối và dùng địa chỉ noreply.
-Plugin version 0.1.0 đã có trong hai manifest và gói ZIP. Trạng thái push, tag và
-kiểm tra trên GitHub cần đối chiếu trực tiếp tại repository khi phát hành.
+Plugin version 0.1.0 có trong hai manifest, Git tag và gói ZIP phát hành.
