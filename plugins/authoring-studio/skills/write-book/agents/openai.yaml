@@ -1,0 +1,6 @@
+interface:
+  display_name: "Write Book"
+  short_description: "Biên soạn sách có minh họa, quản lý nguồn và biên tập"
+  default_prompt: "Dùng $write-book để đọc hồ sơ sách và thực hiện yêu cầu hiện tại theo các quy ước đã thống nhất."
+policy:
+  allow_implicit_invocation: true

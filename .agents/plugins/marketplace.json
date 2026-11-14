@@ -1,0 +1,12 @@
+{
+  "name": "authoring-studio-marketplace",
+  "interface": {"displayName": "Authoring Studio"},
+  "plugins": [
+    {
+      "name": "authoring-studio",
+      "source": {"source": "local", "path": "./plugins/authoring-studio"},
+      "category": "Productivity",
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_USE"}
+    }
+  ]
+}

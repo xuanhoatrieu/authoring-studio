@@ -1,0 +1,56 @@
+schema_version: 1
+title: "Ứng dụng chuyển đổi số trong quảng bá, kết nối du lịch nông nghiệp, nông thôn"
+language: vi
+profile: rural-tourism-vi
+stage: discussion
+audience:
+  - Bà con tham gia du lịch nông nghiệp và nông thôn
+  - Hộ kinh doanh và chủ điểm du lịch
+  - Hợp tác xã và doanh nghiệp
+  - Cán bộ quản lý và cán bộ hỗ trợ địa phương
+scope: "Giáo trình dùng chung, tự học và tham khảo; độc lập thời lượng và địa điểm tập huấn."
+example_region: "Các tỉnh miền núi phía Bắc; kiểm tra tên địa phương theo thời điểm xuất bản."
+source_cutoff: "2026-11-14"
+authoring:
+  source_format: markdown-yaml
+  export_on_request_only: true
+  bibliography_scope: book
+  citation_style: pending
+  chapter_learning_objectives: false
+  chapter_introductions: false
+  exercise_placement: chapter-end-provisional
+  examples: verified-with-cited-sources
+  front_matter: "Mục tiêu, phạm vi, đối tượng và cách sử dụng đặt trong phần đầu sách."
+  separate_chapter_summaries: pending
+  separate_review_questions: pending
+  illustrations_per_substantive_topic: required
+  existing_images_first: true
+  forbidden_labels:
+    - dữ kiện thực tế
+    - dữ liệu thực tế
+    - tình huống thực tế
+    - hình ảnh thật
+layout:
+  paper: A4
+  orientation: portrait
+  margins_cm: {left: 3, right: 2, top: 2, bottom: 2}
+  body_font: Times New Roman
+  body_font_pt: 13
+  line_spacing_multiple: 1.3
+  paragraph_spacing_pt: 4
+  paragraph_spacing_position: pending
+  chapter_heading_align: pending
+  section_heading_align: pending
+  caption_font_pt: null
+  body_alignment: pending
+  text_width_cm: 16
+  table:
+    title_align: center
+    header_horizontal_align: center
+    header_vertical_align: center
+    number_horizontal_align: center
+    text_horizontal_align: left
+    body_vertical_align: center
+    line_spacing_multiple: 1
+    paragraph_before_pt: 0
+    paragraph_after_pt: 0

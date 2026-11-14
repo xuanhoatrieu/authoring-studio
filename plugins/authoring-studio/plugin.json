@@ -1,0 +1,18 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "authoring-studio",
+  "version": "0.1.0",
+  "description": "Biên soạn sách từ bản nguồn, quản lý minh họa, dẫn nguồn và quy ước biên tập.",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Authoring Studio",
+        "shortDescription": "Biên soạn sách có minh họa từ bản nguồn",
+        "longDescription": "Thảo luận, lập đề cương, nghiên cứu, viết và biên tập sách bằng Markdown và YAML. Quản lý hình, bảng, nguồn và trạng thái dự án. Phiên bản 0.1.0 chưa có skill trình chiếu hoặc bộ xuất bản.",
+        "category": "Productivity",
+        "capabilities": ["Read", "Write"],
+        "defaultPrompt": ["Dùng write-book để tiếp tục dự án sách theo các quyết định đã thống nhất."]
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "authoring-studio",
+  "version": "0.1.0",
+  "description": "Biên soạn sách từ bản nguồn, quản lý minh họa, dẫn nguồn và quy ước biên tập.",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Authoring Studio",
+    "shortDescription": "Biên soạn sách có minh họa từ bản nguồn",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"]
+  }
+}

@@ -1,0 +1,40 @@
+schema_version: 1
+title: ""
+language: vi
+profile: generic
+stage: discussion
+audience: []
+scope: ""
+example_region: null
+source_cutoff: null
+authoring:
+  source_format: markdown-yaml
+  export_on_request_only: true
+  bibliography_scope: book
+  citation_style: pending
+  chapter_learning_objectives: false
+  chapter_introductions: false
+  exercise_placement: pending
+  examples: verified-with-cited-sources
+layout:
+  paper: A4
+  orientation: portrait
+  margins_cm: {left: 3, right: 2, top: 2, bottom: 2}
+  body_font: Times New Roman
+  body_font_pt: 13
+  line_spacing_multiple: 1.3
+  paragraph_spacing_pt: 4
+  paragraph_spacing_position: pending
+  chapter_heading_align: pending
+  section_heading_align: pending
+  caption_font_pt: null
+  table:
+    title_align: center
+    header_horizontal_align: center
+    header_vertical_align: center
+    number_horizontal_align: center
+    text_horizontal_align: left
+    body_vertical_align: center
+    line_spacing_multiple: 1
+    paragraph_before_pt: 0
+    paragraph_after_pt: 0
