@@ -2,7 +2,8 @@
 
 Đối chiếu theo tài liệu OpenAI ngày 14/11/2026. Các thao tác khả dụng tùy phiên bản
 ứng dụng, tài khoản và chính sách workspace. Cài từ Git không đồng nghĩa xuất hiện
-trong thư mục plugin công khai. Chưa kiểm thử cài trong ứng dụng của người dùng.
+trong thư mục plugin công khai. Bản Codex trên máy đã được cài và đối chiếu tệp;
+hướng dẫn Antigravity/Hermes và giới hạn kiểm tra ở [đa nền tảng](platforms.md).
 
 ## Dùng kho trên máy
 
@@ -22,7 +23,7 @@ Plugin được chạy từ bản cài/cache; sửa kho nguồn chưa chắc c�
 Sau khi kho đã được push và tag đã tồn tại:
 
 ```sh
-codex plugin marketplace add xuanhoatrieu/authoring-studio --ref v0.1.0
+codex plugin marketplace add xuanhoatrieu/authoring-studio --ref v0.2.0
 codex plugin add authoring-studio@authoring-studio-marketplace
 ```
 

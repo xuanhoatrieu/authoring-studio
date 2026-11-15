@@ -35,7 +35,7 @@ def validate(tag=None):
             errors.append("Marketplace/plugin names differ")
     skills = list((PLUGIN / "skills").glob("*/SKILL.md"))
     if len(skills) != 1 or skills[0].parent.name != "write-book":
-        errors.append("0.1.0 must contain only the implemented write-book skill")
+        errors.append("Package must contain only the implemented write-book skill")
     for skill in skills:
         text = skill.read_text(encoding="utf-8")
         parts = text.split("---", 2)
@@ -78,6 +78,11 @@ def validate(tag=None):
         if path.is_file() and path.suffix in {".md", ".yaml", ".json", ".py", ".txt"}:
             if "/Users/macos/" in path.read_text(encoding="utf-8"):
                 errors.append(f"Machine-specific path: {path.relative_to(PLUGIN)}")
+    from build_standalone import sync
+    try:
+        sync(check=True)
+    except ValueError as exc:
+        errors.append(str(exc))
     return {"version": version, "errors": errors, "skills": len(skills)}
 
 

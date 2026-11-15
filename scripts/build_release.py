@@ -9,6 +9,19 @@ import zipfile
 from validate_repo import ROOT, PLUGIN, validate
 
 
+def archive_entries(archive, entries):
+    with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as z:
+        for name, content in sorted(entries.items()):
+            info = zipfile.ZipInfo(name, (2026, 1, 1, 0, 0, 0))
+            info.create_system = 3
+            info.external_attr = 0o100644 << 16
+            info.compress_type = zipfile.ZIP_DEFLATED
+            z.writestr(info, content)
+    digest = hashlib.sha256(archive.read_bytes()).hexdigest()
+    archive.with_suffix(".sha256").write_text(f"{digest}  {archive.name}\n", encoding="utf-8")
+    return {"archive": str(archive), "sha256": digest, "files": len(entries)}
+
+
 def build(output):
     report = validate()
     if report["errors"]:
@@ -27,17 +40,12 @@ def build(output):
     for filename in ["LICENSE", "THIRD_PARTY_NOTICES.md"]:
         entries[filename] = (ROOT / filename).read_bytes()
     entries["PACKAGE.md"] = (ROOT / "docs/package.md").read_bytes()
-    with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as z:
-        for name, content in sorted(entries.items()):
-            info = zipfile.ZipInfo(name, (2026, 1, 1, 0, 0, 0))
-            info.create_system = 3
-            info.external_attr = 0o100644 << 16
-            info.compress_type = zipfile.ZIP_DEFLATED
-            z.writestr(info, content)
-    digest = hashlib.sha256(archive.read_bytes()).hexdigest()
-    checksum = archive.with_suffix(".sha256")
-    checksum.write_text(f"{digest}  {archive.name}\n", encoding="utf-8")
-    return {"archive": str(archive), "sha256": digest, "files": len(entries)}
+    result = archive_entries(archive, entries)
+    from build_standalone import entries as standalone_entries
+    standalone = {"write-book/" + name: content for name, content in standalone_entries().items()}
+    result["standalone"] = archive_entries(
+        output / f"write-book-standalone-{report['version']}.zip", standalone)
+    return result
 
 
 if __name__ == "__main__":

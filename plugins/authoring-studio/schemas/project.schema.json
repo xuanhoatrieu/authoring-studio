@@ -50,7 +50,10 @@
             "section": {"type": "string", "pattern": "^sec-[a-z0-9-]+$"},
             "chapter_file": {"$ref": "#/$defs/path"},
             "file": {"type": ["string", "null"]},
-            "caption_id": {"type": "string"},
+            "caption_id": {"type": ["string", "null"]},
+            "role": {"enum": ["content", "book-cover", "chapter-cover"]},
+            "numbered": {"type": "boolean"},
+            "prompt_file": {"type": ["string", "null"], "minLength": 1},
             "layout": {"enum": ["text-left-image-right", "image-left-text-right", "full-width-below", "full-width-above", "pair", "steps"]},
             "status": {"enum": ["planned", "acquired", "reviewed", "needs-replacement"]},
             "origin": {"enum": ["existing", "screenshot", "generated", "diagram", "chart", "pending"]},
@@ -58,6 +61,17 @@
             "source_url": {"type": ["string", "null"]},
             "rights": {"type": ["string", "null"]},
             "source_id": {"type": ["string", "null"]}
+          },
+          "if": {
+            "required": ["role"],
+            "properties": {"role": {"enum": ["book-cover", "chapter-cover"]}}
+          },
+          "then": {
+            "required": ["numbered"],
+            "properties": {"caption_id": {"type": "null"}, "numbered": {"const": false}}
+          },
+          "else": {
+            "properties": {"caption_id": {"type": "string"}, "numbered": {"const": true}}
           }
         }}
       }

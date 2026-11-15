@@ -1,4 +1,4 @@
-# Kiến trúc phiên bản 0.1.0
+# Kiến trúc phiên bản 0.2.0
 
 ## Hai dự án độc lập
 
@@ -39,6 +39,12 @@ tư liệu trở thành lỗi khi chạy `--strict`. Không kiểm chứng sự 
 `validate_repo.py` kiểm tra hợp đồng phát hành; `build_release.py` tạo ZIP và SHA256.
 
 ## Mở rộng sau này
+
+0.2.0 giữ nguyên cấu trúc Codex. `scripts/build_standalone.py` sinh
+`skills/write-book/` tự chứa từ nguồn plugin; tài nguyên được đặt dưới resources,
+đường dẫn ở entrypoint được điều chỉnh khi sinh, không sửa nguồn Codex. Validator
+phát hiện bản sinh lệch nguồn. Build release tạo cả ZIP plugin và ZIP skill độc lập.
+Không duy trì ba bản quy tắc riêng; xem [đa nền tảng](platforms.md).
 
 Skill trình chiếu có thể đọc mục, hình và nguồn theo ID để biên tập slide, nhưng
 phải có mục đích, cấu trúc và quy tắc riêng. Không có skill rỗng trong bản 0.1.0.

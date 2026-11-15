@@ -21,9 +21,30 @@ Cross-refer with `@sec-name`, `@fig-name` and `@tbl-name`.
 `image-index.yaml` maps each figure to `section`, `chapter_file`, `file`,
 `caption_id`, `layout`, `status`, `origin`, `source_url`, `rights`, and `alt`.
 A planned image may have a null file; validation reports the gap, not a completion.
+Optional `role` is `content` (also the default when omitted), `book-cover`, or
+`chapter-cover`. Covers require `caption_id: null` and `numbered: false`; retain
+the normal image/section anchors and alt text but omit the caption marker. A
+content figure still requires its caption; it cannot opt out using `numbered: false`.
+Render covers as unnumbered artwork, outside the figure counter/list. Credit covers
+by book/chapter title and cross-reference their section, not their figure ID.
+
+For newly generated images or drawn diagrams/charts, save the final brief/prompt
+or specification as `image/prompts/<semantic-id>.md` and set `prompt_file` to that
+book-relative path. The validator checks provided prompt paths and files. These
+fields extend schema 1 without requiring changes to existing content-figure records;
+older plugin builds may not understand cover records. Do not automatically migrate
+existing books or change their approval state.
 `table-index.yaml` maps each table to its section, chapter file, caption marker,
 header row count and body-column types (`text` or `number`). Layout policy is in
-`book.yaml`; actual rendering is outside version 0.1.0.
+`book.yaml`. No renderer is bundled; requested previews and exports must apply
+these values through an available renderer and undergo visual inspection.
+
+Keep source URLs, rights and processing history in image records. Where needed,
+author an end-of-book image credits section in Markdown linked to stable figure
+IDs; render the corresponding figure numbers for content figures and cover titles
+for covers. Apply the caption and
+credit rules in [images and layout](images-layout.md). Original work for the user
+does not require a self-credit source line.
 
 In `references.yaml`, use `references: []` or CSL-compatible entries with `id`,
 `type`, `title`, `author`, `issued`, `URL` and other needed CSL fields. Use one
@@ -51,3 +72,8 @@ Edit the existing Markdown, never a compiled copy. Preserve IDs and the user's e
 If content moves, update index paths, section relationships and evidence references.
 Record completed work and remaining gaps in `state.yaml`. Do not duplicate complete
 captions, source entries or chapter text into progress records.
+Keep the book's reading order in `outline.md`, including front matter and chapter
+opening pages under `chapters/`. A cover stored separately is not an extra chapter.
+On a requested export, derive the table of contents from the actual headings/order
+and let the renderer compute page numbers. Footer text and numbering policy live
+in `book.yaml`, not in repeated source paragraphs.

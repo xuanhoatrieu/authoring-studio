@@ -33,8 +33,20 @@ places them in the front matter. Keep methods, supporting images and examples to
 
 1. Content: scope, factual support, limitations and conditions of application.
 2. Structure: ordering, duplication, definitions and connections between chapters.
-3. Language: clarity, unnecessary words, terminology, grammar and Vietnamese diacritics.
-4. Visuals: evidence, readability, captions, placement, source and layout fallback.
+3. Language: perform [natural-writing editing](natural-writing.md), including
+   contextual diagnosis, targeted revision, meaning preservation and a final read
+   in context. Apply these rules during drafting too; checking an example does not
+   satisfy a chapter or book review.
+4. Visuals: evidence, instructional meaning, readability, placement and source.
+   Review prose, visible image text and caption together. For requested rendered
+   output, check pagination and contents using images/layout and quality guidance.
 
 These are review passes, not a requirement to launch separate agents. Record which
 passes were performed and what remains. Use subagents only when authorized.
+
+For a whole-book task, cover every source in the actual reading order. Review
+chapter openings, transitions, repeated explanations and terminology across chapter
+boundaries. Track completed and remaining sections in the existing project records;
+do not claim whole-book coverage after sampling. For a narrow edit, inspect nearby
+context but keep changes within the requested scope. A style review alone neither
+verifies evidence nor authorizes manuscript changes.

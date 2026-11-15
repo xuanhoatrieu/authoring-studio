@@ -1,0 +1,8 @@
+{
+  "name": "write-book",
+  "version": "0.2.0",
+  "source": "plugins/authoring-studio",
+  "generated": true,
+  "resource_root": "resources",
+  "schema_version": 1
+}

@@ -13,6 +13,10 @@ Work in the user's chosen book directory, separate from this installed plugin.
 The plugin provides instructions and templates; it is never a manuscript workspace.
 Follow the latest user direction and the book's recorded decisions. Do not infer
 permission to draft from a request to discuss, outline, research, or find images.
+Use the current host's available tools; tool names and model providers are not
+fixed by this skill. Check required capabilities before research, image generation
+or rendered-page review. Record incomplete steps if unavailable. Updating this
+skill never authorizes editing or migrating an existing book.
 
 ## Choose the current task
 
@@ -36,15 +40,32 @@ permission to draft from a request to discuss, outline, research, or find images
 ## Read the relevant guidance
 
 - Discuss or outline: [workflow](references/workflow.md) and
-  [editorial rules](references/editorial.md).
+  [editorial rules](references/editorial.md). For front matter or chapter opening
+  pages, also read [book structure](references/book-structure.md).
 - Research or check a claim: [research and citations](references/research.md).
-- Draft or revise: editorial rules, [source format](references/source-format.md),
-  and the book's own conventions; inspect neighbouring sections when needed.
+- Draft or revise: editorial rules, [natural writing](references/natural-writing.md),
+  [source format](references/source-format.md),
+  [images and layout](references/images-layout.md), and the book's own conventions;
+  inspect neighbouring sections when needed. Apply caption and visual rules during
+  drafting, not only in a later image pass. Review the passage, visible image text
+  and caption together, including text already embedded in an image file.
 - Plan, find or create an image: [images and layout](references/images-layout.md).
-- Review, hand off or upgrade: [quality and portability](references/quality.md).
+  Before generating an image or drawing a diagram/chart, read
+  [visual briefs and prompts](references/image-prompts.md).
+- Review prose: natural writing and [quality and portability](references/quality.md).
+  Hand off or upgrade: quality and portability.
+- Produce a requested reading preview or export: images and layout, quality and
+  portability, and book structure. Apply the agreed formatting, covers, contents
+  and footer; inspect the rendered result.
 
 ## Non-negotiable boundaries for this workflow
 
+- Apply natural-writing editing to every book, regardless of its named profile.
+  Use it while drafting and review the authorized text before delivery, including
+  front matter, chapters, exercises, tables, captions and visual labels. Follow
+  the book's language, genre, audience and author voice; Vietnamese textbooks use
+  the specific Vietnamese guidance. Do not reduce this step to example rewrites,
+  a word blacklist or an unsupported claim that text is free of AI authorship.
 - Keep prose, source evidence, layout metadata and project progress distinct.
   Do not hide important qualifications in metadata instead of reader-facing prose.
 - Use verified sources for facts. Mark unresolved facts in working records;
@@ -55,11 +76,21 @@ permission to draft from a request to discuss, outline, research, or find images
   or pretend an unavailable image has been acquired.
 - Reference all figures, tables and sections by stable semantic IDs. Captions are
   authored once in Markdown; indexes point to them and do not duplicate caption text.
+  For every book, name the content directly: in Vietnamese, “Hình x.x. Nội dung
+  của hình.” Do not prepend “Minh họa” or a redundant “Ví dụ”; localize the label
+  and use the book's numbering convention for other languages. Preserve necessary
+  attribution and identify hypothetical material in its context.
+  Book/chapter cover images are unnumbered and captionless when the profile calls
+  for it; keep their semantic asset IDs, alt text and provenance. Do not force
+  content-figure caption rules onto covers.
 - Draft in Markdown, with YAML metadata. Do not produce DOCX, PPTX or PDF unless
-  requested. Version 0.1.0 includes no renderer; layout settings express intent and
-  require visual checking when a renderer is later selected.
+  requested. No renderer is bundled; when producing a requested preview or export,
+  use an available renderer to apply the agreed layout and visually check it.
+  Metadata alone is not completed formatting.
 - Centralize the bibliography for the whole book. Keep short in-text citations
-  and accurate figure attribution. Respect licenses and permissions of assets.
+  and accurate third-party attribution. Do not add self-credit source lines to
+  original figures, tables or forms made for the user. Keep captions concise and
+  preserve external sources and asset rights as described in images and layout.
 - Do not automatically publish, push a manuscript, send messages, install the
   plugin into other apps, or create slide content as a side effect of writing.
 

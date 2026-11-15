@@ -1,4 +1,4 @@
-# Authoring Studio 0.1.0
+# Authoring Studio 0.2.0
 
 Gói này là plugin, không chứa bản thảo. `plugin.json` ở gốc gói; `skills/write-book`
 chứa skill. `.codex-plugin/plugin.json` là bản tương thích. Cài bằng giao diện nhập

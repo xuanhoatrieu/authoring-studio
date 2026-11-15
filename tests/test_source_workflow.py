@@ -55,6 +55,51 @@ class SourceWorkflow(unittest.TestCase):
         self.assertEqual([], list((self.root / "image").iterdir()))
         self.assertEqual([], validate(self.root)["errors"])
 
+    def test_confirmed_tourism_layout_is_initialized_without_changing_generic(self):
+        layout = self.load("book.yaml")["layout"]
+        expected = {
+            "paper": "A4", "orientation": "portrait",
+            "margins_cm": {"left": 3, "right": 2, "top": 2, "bottom": 2},
+            "body_font": "Times New Roman", "body_font_pt": 13,
+            "body_alignment": "justify", "line_spacing_multiple": 1.3,
+            "paragraph_spacing_pt": 4, "paragraph_spacing_position": "after",
+            "paragraph_before_pt": 0, "paragraph_after_pt": 4,
+            "chapter_heading_align": "left", "section_heading_align": "left",
+            "caption_font_pt": 12, "caption_align": "center", "text_width_cm": 16,
+            "book_cover": {
+                "separate_page": True, "prominent_title": True,
+                "representative_image": True, "caption": False, "numbered": False,
+                "title_rendering": "typeset",
+            },
+            "footer": {
+                "left_text": "@ TS.Triệu Xuân Hoà", "page_number_align": "right",
+                "page_number_format": "arabic", "page_number_start": 1, "scope": "all-pages",
+            },
+            "table": {
+                "title_align": "center", "header_horizontal_align": "center",
+                "header_vertical_align": "center", "number_horizontal_align": "center",
+                "text_horizontal_align": "left", "body_vertical_align": "center",
+                "line_spacing_multiple": 1, "paragraph_before_pt": 0, "paragraph_after_pt": 0,
+            },
+        }
+        self.assertEqual(expected, layout)
+        authoring = self.load("book.yaml")["authoring"]
+        self.assertEqual(["book-cover", "preface", "table-of-contents", "general-introduction"],
+                         authoring["front_matter_order"])
+        self.assertTrue(authoring["chapter_covers"]["content_starts_next_page"])
+        self.assertFalse(authoring["chapter_covers"]["caption"])
+        self.assertFalse(authoring["existing_images_first"])
+        self.assertEqual("photorealistic", authoring["generated_scene_style"])
+        generic = Path(self.temp.name) / "generic-book"
+        initialize(generic, "Generic test")
+        generic_layout = yaml.safe_load((generic / "book.yaml").read_text(encoding="utf-8"))["layout"]
+        self.assertEqual("pending", generic_layout["chapter_heading_align"])
+        self.assertEqual("pending", generic_layout["section_heading_align"])
+        self.assertEqual("pending", generic_layout["paragraph_spacing_position"])
+        self.assertIsNone(generic_layout["caption_font_pt"])
+        self.assertNotIn("footer", generic_layout)
+        self.assertNotIn("book_cover", generic_layout)
+
     def test_existing_book_is_not_overwritten(self):
         original = (self.root / "book.yaml").read_bytes()
         with self.assertRaises(ValueError):
@@ -107,6 +152,65 @@ class SourceWorkflow(unittest.TestCase):
         data["images"][0]["file"] = "../outside.svg"
         self.save("image-index.yaml", data)
         self.assertTrue(any("escapes" in e for e in validate(self.root)["errors"]))
+
+    def cover_sample(self, role="book-cover"):
+        self.sample()
+        path = self.root / "chapters/sample.md"
+        path.write_text(path.read_text(encoding="utf-8").replace(
+            '<!-- caption: fig-example -->\nSơ đồ kiểm thử.\n', ''), encoding="utf-8")
+        data = self.load("image-index.yaml")
+        data["images"][0].update(role=role, caption_id=None, numbered=False)
+        self.save("image-index.yaml", data)
+
+    def test_cover_roles_allow_no_caption_but_preserve_asset_checks(self):
+        for role in ["book-cover", "chapter-cover"]:
+            with self.subTest(role=role):
+                self.cover_sample(role)
+                self.assertEqual([], validate(self.root)["errors"])
+                (self.root / "image/example.svg").unlink()
+                self.assertTrue(any("Missing" in e for e in validate(self.root)["errors"]))
+
+    def test_cover_rejects_caption_and_numbered_reference(self):
+        self.cover_sample()
+        path = self.root / "chapters/sample.md"
+        with path.open("a", encoding="utf-8") as f:
+            f.write('\n<!-- caption: fig-example -->\nForbidden caption.\n\nSee @fig-example.\n')
+        errors = validate(self.root)["errors"]
+        self.assertTrue(any("Cover must not have a caption" in e for e in errors))
+        self.assertTrue(any("reference its section instead" in e for e in errors))
+
+    def test_cover_rejects_figure_number_and_content_cannot_skip_caption(self):
+        self.cover_sample()
+        data = self.load("image-index.yaml")
+        data["images"][0]["numbered"] = True
+        self.save("image-index.yaml", data)
+        self.assertTrue(validate(self.root)["errors"])
+        for role in [None, "content"]:
+            with self.subTest(role=role):
+                item = data["images"][0]
+                item.pop("role", None)
+                if role:
+                    item["role"] = role
+                item["numbered"] = False
+                self.save("image-index.yaml", data)
+                self.assertTrue(validate(self.root)["errors"])
+
+    def test_prompt_file_mapping_and_portability(self):
+        self.sample()
+        prompt = self.root / "image/prompts/fig-example.md"
+        prompt.parent.mkdir()
+        prompt.write_text('Draw the fixture as specified.\n', encoding="utf-8")
+        data = self.load("image-index.yaml")
+        data["images"][0]["prompt_file"] = "image/prompts/fig-example.md"
+        self.save("image-index.yaml", data)
+        self.assertEqual([], validate(self.root)["errors"])
+        prompt.unlink()
+        self.assertTrue(any("Missing image prompt" in e for e in validate(self.root)["errors"]))
+        for value in ["../outside.md", str(prompt), "chapters/sample.md"]:
+            with self.subTest(path=value):
+                data["images"][0]["prompt_file"] = value
+                self.save("image-index.yaml", data)
+                self.assertTrue(validate(self.root)["errors"])
 
     def test_absolute_path_rejected(self):
         self.sample()
@@ -165,7 +269,7 @@ class SourceWorkflow(unittest.TestCase):
 
     def test_release_version_mismatch_is_rejected(self):
         self.assertTrue(validate_repo("v9.9.9")["errors"])
-        self.assertEqual([], validate_repo("v0.1.0")["errors"])
+        self.assertEqual([], validate_repo("v0.2.0")["errors"])
 
 
 if __name__ == "__main__":

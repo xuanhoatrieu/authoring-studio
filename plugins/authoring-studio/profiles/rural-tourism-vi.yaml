@@ -20,11 +20,24 @@ authoring:
   chapter_introductions: false
   exercise_placement: chapter-end-provisional
   examples: verified-with-cited-sources
-  front_matter: "Mục tiêu, phạm vi, đối tượng và cách sử dụng đặt trong phần đầu sách."
+  front_matter: "Trang bìa → Lời nói đầu → Mục lục → Giới thiệu chung (mục tiêu sách, tên và tóm tắt các chương)."
+  front_matter_order: [book-cover, preface, table-of-contents, general-introduction]
+  chapter_covers:
+    enabled: true
+    separate_page: true
+    representative_image: true
+    caption: false
+    numbered: false
+    content_starts_next_page: true
   separate_chapter_summaries: pending
   separate_review_questions: pending
   illustrations_per_substantive_topic: required
-  existing_images_first: true
+  existing_images_first: false
+  image_selection: purpose-based
+  documentary_images: verified-existing
+  generated_scene_style: photorealistic
+  visual_brief_required: true
+  retain_image_prompts: true
   forbidden_labels:
     - dữ kiện thực tế
     - dữ liệu thực tế
@@ -38,12 +51,28 @@ layout:
   body_font_pt: 13
   line_spacing_multiple: 1.3
   paragraph_spacing_pt: 4
-  paragraph_spacing_position: pending
-  chapter_heading_align: pending
-  section_heading_align: pending
-  caption_font_pt: null
-  body_alignment: pending
+  paragraph_spacing_position: after
+  paragraph_before_pt: 0
+  paragraph_after_pt: 4
+  chapter_heading_align: left
+  section_heading_align: left
+  caption_font_pt: 12
+  caption_align: center
+  body_alignment: justify
   text_width_cm: 16
+  book_cover:
+    separate_page: true
+    prominent_title: true
+    representative_image: true
+    caption: false
+    numbered: false
+    title_rendering: typeset
+  footer:
+    left_text: "@ TS.Triệu Xuân Hoà"
+    page_number_align: right
+    page_number_format: arabic
+    page_number_start: 1
+    scope: all-pages
   table:
     title_align: center
     header_horizontal_align: center

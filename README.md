@@ -1,6 +1,10 @@
 # Authoring Studio
 
-**Phiên bản 0.1.0** — Plugin biên soạn sách từ bản nguồn, có skill `write-book`.
+**Phiên bản 0.2.0** — Plugin biên soạn sách từ bản nguồn, có skill `write-book`.
+
+Dùng trên Codex, Antigravity và Hermes Agent/Desktop: xem
+[hướng dẫn đa nền tảng](docs/platforms.md). Gói Codex giữ nguyên cấu trúc cài đặt;
+gói skill độc lập được sinh từ cùng nguồn.
 
 Plugin lưu quy trình nghiên cứu, lập đề cương, biên soạn, minh họa và biên tập.
 Nội dung sách được lưu trong dự án riêng bằng Markdown và YAML. Phiên bản này
@@ -34,7 +38,7 @@ Ví dụ yêu cầu:
 
 ## Phạm vi và giới hạn
 
-0.1.0 chưa có trình dựng bố cục, đọc chất lượng ảnh tự động, chuyển đổi schema,
+0.2.0 chưa có trình dựng bố cục, đọc chất lượng ảnh tự động, chuyển đổi schema,
 tự đồng bộ bản thảo hay tự cập nhật plugin. Cấu hình A4 biểu thị quy cách cần đạt;
 không phải chứng nhận một bản in đã đạt. Kiểm tra cấu trúc không thay thế kiểm chứng
 nguồn, quyền sử dụng ảnh, nhận xét biên tập hoặc đọc thử với độc giả.
@@ -50,6 +54,28 @@ trước/sau 0 pt. Quy tắc này không căn giữa tiêu đề chương hoặc
 
 Hồ sơ đầy đủ: [quyết định của sách du lịch](plugins/authoring-studio/profiles/rural-tourism-decisions.md).
 Các lựa chọn chưa chốt được giữ là pending, không biến thành phê duyệt của tác giả.
+
+Các cập nhật 0.2.0 bổ sung thiết kế prompt ảnh theo nội dung,
+phân biệt ảnh minh họa với sơ đồ/biểu đồ, và lưu đặc tả cùng từng hình. Hồ sơ du
+lịch có thứ tự bìa sách → lời nói đầu → mục lục → giới thiệu chung; mỗi chương
+có bìa riêng. Ảnh bìa không caption/số hình; caption trong nội dung cỡ 12 căn giữa.
+Footer của riêng hồ sơ này có “@ TS.Triệu Xuân Hoà” bên trái và số trang tự động
+bên phải. Hướng dẫn yêu cầu kiểm tra bản dựng thực tế; plugin chưa kèm bộ dàn trang.
+
+Bước [biên tập văn phong tự nhiên](plugins/authoring-studio/skills/write-book/references/natural-writing.md)
+được áp dụng trong viết mới, sửa và rà sách ở mọi hồ sơ. Hướng dẫn tiếng Việt
+rà từ thừa, ý lặp, cấu trúc máy móc và giọng phô trương trong toàn phạm vi được
+giao, đồng thời giữ thuật ngữ, số liệu, điều kiện và nguồn. Quy tắc điều chỉnh
+theo thể loại, độc giả và giọng tác giả; không giới hạn ở ví dụ hay sách du lịch.
+Đây là bước biên tập có kiểm tra ý nghĩa, không phải bộ phát hiện tác giả AI.
+
+Quy tắc chung mới gọi thẳng nội dung trong chú thích: “Hình x.x. Nội dung của
+hình.”, bỏ tiền tố “Minh họa” và “Ví dụ” thừa; rà cả chữ trong ảnh cùng thân bài
+và caption. Hình cần thể hiện đúng thao tác hoặc quan hệ đang giải thích. Kiểm
+tra bản dựng bao gồm bảng ngắn bị chia trang, đoạn dẫn xa hình/bảng, tên chương
+lặp sau bìa riêng và mục lục quá chật. Tên hình được điều chỉnh theo ngôn ngữ và
+cách đánh số của sách; nguồn, điều kiện và giả định cần thiết vẫn được bảo toàn.
+Các quy tắc áp dụng cho mọi sách, không tự sửa bản thảo khi cập nhật plugin.
 
 ## Kiểm tra và đóng gói
 
@@ -75,7 +101,8 @@ Sau đó:
 
 ```sh
 python -m pip install -r plugins/authoring-studio/requirements.txt
-python scripts/validate_repo.py --tag v0.1.0
+python scripts/build_standalone.py --check
+python scripts/validate_repo.py --tag v0.2.0
 python -m unittest discover -s tests -v
 python scripts/build_release.py
 ```
@@ -98,8 +125,8 @@ tạo hồ sơ, thư mục ảnh và thư mục chương rỗng. Không cần ch
 ## GitHub và các phiên bản
 
 [Kho mã nguồn](https://github.com/xuanhoatrieu/authoring-studio) ·
-[Bản phát hành v0.1.0](https://github.com/xuanhoatrieu/authoring-studio/releases/tag/v0.1.0) ·
-[Kết quả kiểm tra](docs/verification-0.1.0.md).
+[Bản phát hành v0.2.0](https://github.com/xuanhoatrieu/authoring-studio/releases/tag/v0.2.0) ·
+[Kết quả kiểm tra](docs/verification-0.2.0.md).
 
 [Hướng dẫn phát hành](docs/github-release.md) mô tả tạo repository, push, tag,
 Release, cách kiểm tra phiên bản và quay lại bản trước. [Kiến trúc](docs/architecture.md)

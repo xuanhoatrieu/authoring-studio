@@ -23,6 +23,10 @@ def initialize(target, title, profile="generic", dry_run=False):
     if target.exists():
         raise ValueError("Destination already exists; existing work will not be overwritten.")
     boundaries = [PLUGIN]
+    # In a standalone skill, resources/ is nested inside the installed skill.
+    # Keep manuscripts outside that whole bundle, just as for a Codex plugin.
+    if (PLUGIN.parent / "bundle.json").is_file():
+        boundaries.append(PLUGIN.parent)
     for ancestor in PLUGIN.parents:
         if (ancestor / ".agents/plugins/marketplace.json").is_file():
             boundaries.append(ancestor)

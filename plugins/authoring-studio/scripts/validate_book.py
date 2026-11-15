@@ -127,12 +127,16 @@ def validate(root):
         return values
 
     sources = {item["id"] for item in records("references", "references")}
+    covers = {item["id"] for item in data["images"]["images"]
+              if item.get("role") in {"book-cover", "chapter-cover"}}
     for rel, text in docs.items():
         clean = re.sub(r"<!--.*?-->", "", text, flags=re.S)
         for key in MENTION.findall(clean):
             if key.startswith(("fig-", "tbl-", "sec-")):
                 if key not in anchors:
                     errors.append(f"Unresolved cross-reference: {key} in {rel}")
+                elif key in covers:
+                    errors.append(f"Cover has no figure number; reference its section instead: {key} in {rel}")
             elif key not in sources:
                 errors.append(f"Unknown citation: {key} in {rel}")
 
@@ -152,11 +156,26 @@ def validate(root):
                 (warnings if planned else errors).append(f"Missing chapter for {key}: {chapter}")
             if anchors.get(item["section"]) != chapter:
                 (warnings if planned else errors).append(f"Section mismatch for {key}: {item['section']}")
-            if item["caption_id"] != key:
-                errors.append(f"Caption ID must equal item ID: {key}")
-            if not planned and (anchors.get(key) != chapter or captions.get(key) != chapter):
-                errors.append(f"Missing anchor/caption for {key} in {chapter}")
+            if kind == "images" and key in covers:
+                if key in captions:
+                    errors.append(f"Cover must not have a caption: {key}")
+                if not planned and anchors.get(key) != chapter:
+                    errors.append(f"Missing cover anchor for {key} in {chapter}")
+            else:
+                if item["caption_id"] != key:
+                    errors.append(f"Caption ID must equal item ID: {key}")
+                if not planned and (anchors.get(key) != chapter or captions.get(key) != chapter):
+                    errors.append(f"Missing anchor/caption for {key} in {chapter}")
             if kind == "images":
+                if item.get("prompt_file"):
+                    try:
+                        prompt = safe_path(root, item["prompt_file"])
+                        if not prompt.is_relative_to((root / "image/prompts").resolve()):
+                            errors.append(f"Image prompt must be under image/prompts/: {key}")
+                        if not prompt.is_file():
+                            errors.append(f"Missing image prompt: {item['prompt_file']}")
+                    except ValueError as exc:
+                        errors.append(str(exc))
                 if item["file"]:
                     try:
                         asset = safe_path(root, item["file"])
