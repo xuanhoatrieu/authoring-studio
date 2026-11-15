@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -16,6 +17,17 @@ from build_release import build
 
 
 class StandaloneBundle(unittest.TestCase):
+    def test_windows_line_endings_do_not_change_generated_bundle(self):
+        expected = build_standalone.entries()
+        with tempfile.TemporaryDirectory() as folder:
+            plugin = Path(folder) / "plugin"
+            shutil.copytree(build_standalone.PLUGIN, plugin)
+            for path in plugin.rglob("*"):
+                if path.is_file() and path.suffix in {".md", ".yaml", ".json", ".py", ".txt"}:
+                    path.write_bytes(path.read_bytes().replace(b"\r\n", b"\n").replace(b"\n", b"\r\n"))
+            with patch.object(build_standalone, "PLUGIN", plugin):
+                self.assertEqual(expected, build_standalone.entries())
+
     def test_stale_or_missing_resources_are_detected(self):
         with tempfile.TemporaryDirectory() as folder:
             target = Path(folder) / "write-book"
@@ -33,7 +45,7 @@ class StandaloneBundle(unittest.TestCase):
             with zipfile.ZipFile(result["archive"]) as archive:
                 archive.extractall(root / "unpacked")
             skill = root / "unpacked/write-book"
-            self.assertEqual("0.2.0", json.loads((skill / "bundle.json").read_text())["version"])
+            self.assertEqual("0.2.1", json.loads((skill / "bundle.json").read_text())["version"])
             for path in skill.rglob("*.md"):
                 if path.name in {"LICENSE", "THIRD_PARTY_NOTICES.md"} or "templates" in path.parts:
                     continue

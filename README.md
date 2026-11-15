@@ -1,6 +1,6 @@
 # Authoring Studio
 
-**Phiên bản 0.2.0** — Plugin biên soạn sách từ bản nguồn, có skill `write-book`.
+**Phiên bản 0.2.1** — Plugin biên soạn sách từ bản nguồn, có skill `write-book`.
 
 Dùng trên Codex, Antigravity và Hermes Agent/Desktop: xem
 [hướng dẫn đa nền tảng](docs/platforms.md). Gói Codex giữ nguyên cấu trúc cài đặt;
@@ -38,7 +38,7 @@ Ví dụ yêu cầu:
 
 ## Phạm vi và giới hạn
 
-0.2.0 chưa có trình dựng bố cục, đọc chất lượng ảnh tự động, chuyển đổi schema,
+0.2.1 chưa có trình dựng bố cục, đọc chất lượng ảnh tự động, chuyển đổi schema,
 tự đồng bộ bản thảo hay tự cập nhật plugin. Cấu hình A4 biểu thị quy cách cần đạt;
 không phải chứng nhận một bản in đã đạt. Kiểm tra cấu trúc không thay thế kiểm chứng
 nguồn, quyền sử dụng ảnh, nhận xét biên tập hoặc đọc thử với độc giả.
@@ -55,7 +55,7 @@ trước/sau 0 pt. Quy tắc này không căn giữa tiêu đề chương hoặc
 Hồ sơ đầy đủ: [quyết định của sách du lịch](plugins/authoring-studio/profiles/rural-tourism-decisions.md).
 Các lựa chọn chưa chốt được giữ là pending, không biến thành phê duyệt của tác giả.
 
-Các cập nhật 0.2.0 bổ sung thiết kế prompt ảnh theo nội dung,
+Các cập nhật 0.2.1 bổ sung thiết kế prompt ảnh theo nội dung,
 phân biệt ảnh minh họa với sơ đồ/biểu đồ, và lưu đặc tả cùng từng hình. Hồ sơ du
 lịch có thứ tự bìa sách → lời nói đầu → mục lục → giới thiệu chung; mỗi chương
 có bìa riêng. Ảnh bìa không caption/số hình; caption trong nội dung cỡ 12 căn giữa.
@@ -102,7 +102,7 @@ Sau đó:
 ```sh
 python -m pip install -r plugins/authoring-studio/requirements.txt
 python scripts/build_standalone.py --check
-python scripts/validate_repo.py --tag v0.2.0
+python scripts/validate_repo.py --tag v0.2.1
 python -m unittest discover -s tests -v
 python scripts/build_release.py
 ```
@@ -125,8 +125,8 @@ tạo hồ sơ, thư mục ảnh và thư mục chương rỗng. Không cần ch
 ## GitHub và các phiên bản
 
 [Kho mã nguồn](https://github.com/xuanhoatrieu/authoring-studio) ·
-[Bản phát hành v0.2.0](https://github.com/xuanhoatrieu/authoring-studio/releases/tag/v0.2.0) ·
-[Kết quả kiểm tra](docs/verification-0.2.0.md).
+[Bản phát hành v0.2.1](https://github.com/xuanhoatrieu/authoring-studio/releases/tag/v0.2.1) ·
+[Kết quả kiểm tra](docs/verification-0.2.1.md).
 
 [Hướng dẫn phát hành](docs/github-release.md) mô tả tạo repository, push, tag,
 Release, cách kiểm tra phiên bản và quay lại bản trước. [Kiến trúc](docs/architecture.md)

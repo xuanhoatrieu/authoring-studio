@@ -23,7 +23,7 @@ Plugin được chạy từ bản cài/cache; sửa kho nguồn chưa chắc c�
 Sau khi kho đã được push và tag đã tồn tại:
 
 ```sh
-codex plugin marketplace add xuanhoatrieu/authoring-studio --ref v0.2.0
+codex plugin marketplace add xuanhoatrieu/authoring-studio --ref v0.2.1
 codex plugin add authoring-studio@authoring-studio-marketplace
 ```
 

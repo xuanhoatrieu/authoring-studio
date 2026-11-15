@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1 — 2026-11-15
+
+- Sửa đối chiếu gói sinh khi checkout dùng CRLF trên Windows; chuẩn hóa xuống dòng và thêm kiểm thử hồi quy.
+- Giữ nguyên cấu trúc và quy trình của 0.2.0; tag 0.2.0 đã công bố không bị di chuyển.
+- Bản 0.2.0 chưa tạo Release vì CI Windows không đạt; 0.2.1 là bản phát hành được khuyến nghị.
+
 ## 0.2.0 — 2026-11-15
 
 - Giữ cấu trúc plugin Codex; sinh thêm gói write-book độc lập cho Antigravity và

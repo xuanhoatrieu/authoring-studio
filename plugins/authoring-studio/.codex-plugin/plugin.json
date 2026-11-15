@@ -1,6 +1,6 @@
 {
   "name": "authoring-studio",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Biên soạn sách từ bản nguồn, quản lý minh họa, dẫn nguồn và quy ước biên tập.",
   "skills": "./skills/",
   "interface": {

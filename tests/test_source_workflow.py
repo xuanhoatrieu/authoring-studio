@@ -269,7 +269,7 @@ class SourceWorkflow(unittest.TestCase):
 
     def test_release_version_mismatch_is_rejected(self):
         self.assertTrue(validate_repo("v9.9.9")["errors"])
-        self.assertEqual([], validate_repo("v0.2.0")["errors"])
+        self.assertEqual([], validate_repo("v0.2.1")["errors"])
 
 
 if __name__ == "__main__":

@@ -10,6 +10,13 @@ PLUGIN = ROOT / "plugins/authoring-studio"
 TARGET = ROOT / "skills/write-book"
 
 
+def read_portable(path):
+    data = path.read_bytes()
+    if path.suffix in {".md", ".yaml", ".json", ".py", ".txt"} or path.name == "LICENSE":
+        data = data.replace(b"\r\n", b"\n")
+    return data
+
+
 def entries():
     result = {}
     for folder, prefix in [(PLUGIN / "skills/write-book", ""),
@@ -22,17 +29,17 @@ def entries():
                 continue
             if folder.name == "write-book" and "agents" in path.relative_to(folder).parts:
                 continue  # Codex UI metadata stays in the Codex package.
-            result[prefix + path.relative_to(folder).as_posix()] = path.read_bytes()
+            result[prefix + path.relative_to(folder).as_posix()] = read_portable(path)
     text = result["SKILL.md"].decode("utf-8")
     text = text.replace("Plugin root is two directories above this skill.",
                         "Resource root is `resources/` inside this skill. In supporting guidance,\n"
                         "paths such as `scripts/` and `templates/` are relative to that resource root.")
     text = text.replace("../../", "resources/")
     result["SKILL.md"] = text.encode("utf-8")
-    result["resources/plugin.json"] = (PLUGIN / "plugin.json").read_bytes()
-    result["resources/requirements.txt"] = (PLUGIN / "requirements.txt").read_bytes()
+    result["resources/plugin.json"] = read_portable(PLUGIN / "plugin.json")
+    result["resources/requirements.txt"] = read_portable(PLUGIN / "requirements.txt")
     for name in ("LICENSE", "THIRD_PARTY_NOTICES.md"):
-        result[name] = (ROOT / name).read_bytes()
+        result[name] = read_portable(ROOT / name)
     result["bundle.json"] = (json.dumps({
         "name": "write-book", "version": json.loads(result["resources/plugin.json"])["version"],
         "source": "plugins/authoring-studio", "generated": True,
@@ -43,7 +50,7 @@ def entries():
 
 def sync(check=False):
     expected = entries()
-    actual = {p.relative_to(TARGET).as_posix(): p.read_bytes()
+    actual = {p.relative_to(TARGET).as_posix(): read_portable(p)
               for p in TARGET.rglob("*") if p.is_file()
               and "__pycache__" not in p.parts and p.suffix != ".pyc" and p.name != ".DS_Store"}
     if check:

@@ -10,8 +10,8 @@ so sánh từng byte để phát hiện lệch phiên bản hoặc tài nguyên 
 
 Release có hai ZIP kèm SHA256:
 
-- `authoring-studio-0.2.0.zip`: plugin theo cấu trúc cũ cho Codex.
-- `write-book-standalone-0.2.0.zip`: thư mục `write-book/` tự chứa cho host đọc Agent Skills.
+- `authoring-studio-0.2.1.zip`: plugin theo cấu trúc cũ cho Codex.
+- `write-book-standalone-0.2.1.zip`: thư mục `write-book/` tự chứa cho host đọc Agent Skills.
 
 Gói độc lập có SKILL.md, references, resources/templates, profiles, schemas,
 scripts, requirements và manifest phiên bản. Nó không cần các tệp nằm bên ngoài
@@ -21,9 +21,9 @@ Antigravity/Hermes cài plugin Codex. Metadata giao diện Codex không đưa v�
 ## Codex
 
 Giữ marketplace `authoring-studio-marketplace` và plugin `authoring-studio`.
-Làm theo [cài và cập nhật](install-update.md), chọn tag `v0.2.0` khi cài từ GitHub.
+Làm theo [cài và cập nhật](install-update.md), chọn tag `v0.2.1` khi cài từ GitHub.
 Không cài thêm gói độc lập vào cùng Codex để tránh trùng skill. Mở cuộc trao đổi
-mới và xác nhận bản cài là 0.2.0. Nâng plugin không nâng hay sửa bản thảo.
+mới và xác nhận bản cài là 0.2.1. Nâng plugin không nâng hay sửa bản thảo.
 
 ## Antigravity
 
